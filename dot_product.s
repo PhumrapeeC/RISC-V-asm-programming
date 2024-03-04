@@ -40,5 +40,3 @@ loop1:
     # exit cleanly
     addi a0, x0, 10
     ecall
-    
-    
