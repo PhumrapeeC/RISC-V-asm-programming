@@ -1,7 +1,7 @@
 .data
 arr1: .word 1, 2, 3, 4, 5
-arr2: .word 6, 7, 8, 9, 0
-newline: .string "The dot product is: \n"
+arr2: .word 6, 7, 8, 9, 10
+newline: .string "The dot product is: "
 
 .text
 main:
@@ -20,18 +20,25 @@ loop1:
     mul x13, x11, x12  # Multiply x11 and x12, store result in x13
     add x5, x5, x13    # Add multiplication result to sop
 
-    slli x18, x8, 2
-    slli x19, x9, 2
-    add x8, x8, x18
-    add x9, x9, x19
+    addi x8, x8, 4     # move to the next element in arr1
+    addi x9, x9, 4     # move to the next element in arr2
     
     addi x7, x7, 1     # Increment loop index i
     
     j loop1            # Jump back to the start of the loop
  exit1:
+    # print a newline character; use print_string
+    addi a0, x0, 4
+    la a1, newline
+    ecall
+    
     # print_int
     addi a0, x0 ,1
     add a1, x0, x5
+    ecall
+    
+    # exit cleanly
+    addi a0, x0, 10
     ecall
     
     
